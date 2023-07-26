@@ -66,4 +66,9 @@ public class RedisLockController {
         redisTemplate.opsForValue().set("gzy:stock",100);
         return RedisUtil.getValueByKey(redisTemplate, "gzy:stock",Integer.class);
     }
+
+    @GetMapping(value = "/incre")
+    public Object incre() {
+        return redisTemplate.opsForValue().increment("fsu:upgrade:tmp:table11");
+    }
 }
