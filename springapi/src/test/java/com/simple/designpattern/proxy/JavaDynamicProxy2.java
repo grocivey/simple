@@ -6,16 +6,23 @@ import java.lang.reflect.Proxy;
 
 public class JavaDynamicProxy2 {
     interface Eat{
-        String slow();
+        String slow(String food);
+        String quick(String food);
     }
 
     static class SlowEat implements  Eat{
 
 
         @Override
-        public String slow() {
-            System.out.println("慢点吃");
-            return "re 慢点吃";
+        public String slow(String food) {
+            System.out.println("慢点吃---"+food);
+            return "re---慢点吃---";
+        }
+
+        @Override
+        public String quick(String food) {
+            System.out.println("快点吃==="+food);
+            return "re===快点吃===";
         }
     }
 
@@ -29,9 +36,9 @@ public class JavaDynamicProxy2 {
 
         @Override
         public Object invoke(Object proxy, Method method, Object[] args) throws Throwable {
-            System.out.println("我准备慢点吃");
+            System.out.println("我准备"+method.getName()+"吃了");
             Object invoke = method.invoke(eat, args);
-            System.out.println("我慢点吃完了");
+            System.out.println("我"+method.getName()+"吃完了");
             return invoke;
         }
     }
@@ -40,7 +47,8 @@ public class JavaDynamicProxy2 {
         Eat realEat = new SlowEat();
         EatProxy eatProxy = new EatProxy(realEat);
         Eat proxyEat = (Eat) Proxy.newProxyInstance(Eat.class.getClassLoader(), new Class[]{Eat.class}, eatProxy);
-        System.out.println(proxyEat.slow());
+        System.out.println(proxyEat.slow("鱼"));
+        System.out.println(proxyEat.quick("火锅"));
     }
 
 }
