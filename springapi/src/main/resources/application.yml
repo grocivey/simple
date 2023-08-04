@@ -1,6 +1,8 @@
 server:
   port: 8320
 spring:
+  profiles:
+    active: dev
   datasource:
     driverClassName: com.mysql.cj.jdbc.Driver
     url: jdbc:mysql://localhost:3306/rhb_cms_admin?allowMultiQueries=true&useUnicode=true&characterEncoding=UTF-8&serverTimezone=GMT%2B8
