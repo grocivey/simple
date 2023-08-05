@@ -81,7 +81,7 @@
                             <classpathLayoutType>simple</classpathLayoutType>
                             <useUniqueVersions>false</useUniqueVersions>
                             <!-- 项目启动类 -->
-                            <mainClass>com.api.SpringapiApplication</mainClass>
+                            <mainClass>com.simple.SpringapiApplication</mainClass>
                         </manifest>
                         <!-- 将resources目录加入classpath目录 -->
                         <manifestEntries>

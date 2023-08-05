@@ -13,6 +13,10 @@ spring:
     host: 127.0.0.1
     port: 16379
     password: ALARM
+  output:
+    ansi:
+      #检测输出环境是否支持彩色，支持则输出彩色
+      enabled: detect
 mybatis-plus:
   mapper-locations: classpath:mapper/*.xml
 mqtt:
