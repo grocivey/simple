@@ -158,14 +158,11 @@
                                     <resource>
                                         <directory>src/main/resources</directory>
                                         <includes>
-                                            <!--                                            <include>mapper/**</include>-->
-                                            <!--                                            <include>static/**</include>-->
-                                            <!--                                            <include>templates/**</include>-->
-                                            <include>*.yml</include>
-                                            <include>*.yaml</include>
-                                            <include>*.properties</include>
-                                            <include>*.xml</include>
-                                            <!--                                            <include>*.xml</include>-->
+<!--                                            <include>*.yml</include>-->
+<!--                                            <include>*.yaml</include>-->
+<!--                                            <include>*.properties</include>-->
+<!--                                            <include>*.xml</include>-->
+                                            <include>*</include>
                                         </includes>
                                     </resource>
                                 </resources>
