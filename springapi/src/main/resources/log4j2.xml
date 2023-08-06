@@ -10,20 +10,20 @@
         </Console>
 
         <RollingFile name="ErrorAppender" fileName="${logdir}/error.log"
-                     filePattern="${logdir}/$${date:yyyy-MM-dd}/error.%d{yyyy-MM-dd-HH}.log" append="true">
+                     filePattern="${logdir}/error.%d{yyyy-MM-dd-HH}.log" append="true">
             <PatternLayout pattern="${PATTERN}"/>
             <ThresholdFilter level="ERROR" onMatch="ACCEPT" onMismatch="DENY"/>
             <Policies>
-                <TimeBasedTriggeringPolicy interval="1" modulate="true" />
+                <TimeBasedTriggeringPolicy interval="24" modulate="true" />
             </Policies>
         </RollingFile>
 
         <RollingFile name="DebugAppender" fileName="${logdir}/info.log"
-                     filePattern="${logdir}/$${date:yyyy-MM-dd}/info.%d{yyyy-MM-dd-HH}.log" append="true">
+                     filePattern="${logdir}/info.%d{yyyy-MM-dd-HH}.log" append="true">
             <PatternLayout pattern="${PATTERN}"/>
             <ThresholdFilter level="DEBUG" onMatch="ACCEPT" onMismatch="DENY"/>
             <Policies>
-                <TimeBasedTriggeringPolicy interval="1" modulate="true" />
+                <TimeBasedTriggeringPolicy interval="24" modulate="true" />
             </Policies>
         </RollingFile>
 
