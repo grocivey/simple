@@ -13,6 +13,7 @@
     <packaging>pom</packaging>
     <modules>
         <module>springapi</module>
+        <module>simple-common</module>
     </modules>
     <version>1.0</version>
     <name>simple</name>

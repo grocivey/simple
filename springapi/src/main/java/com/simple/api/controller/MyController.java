@@ -1,5 +1,6 @@
 package com.simple.api.controller;
 
+import com.gzy.HelloWorld;
 import com.simple.api.entity.RemoteUpgradeResponse;
 import com.simple.api.service.BaseStatService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -37,4 +38,11 @@ public class MyController {
         return baseStatService.getById("32dde7a2-eec9-11ed-961d-8c554a55b369");
     }
 
+    @Autowired(required = false)
+    HelloWorld helloWorld;
+
+    @GetMapping("/getHelloWorld")
+    public void getHelloWorld(){
+        helloWorld.print();
+    }
 }
