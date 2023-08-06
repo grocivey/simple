@@ -79,7 +79,6 @@
         <Root level="INFO" includeLocation="true">
             <AppenderRef ref="AsyncAppender"/>
             <AppenderRef ref="Console"/>
-            <AppenderRef ref="DebugAppender"/>
         </Root>
     </Loggers>
 </Configuration>
