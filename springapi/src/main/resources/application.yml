@@ -23,5 +23,5 @@ mqtt:
   host: tcp://broker.emqx.io:1883
   clientId: shen_mqttx_0d3a698vk
   sendToicPrefix: shenisduyf3_topic/
-logging:
-  config: classpath:logback.xml
+#logging:
+#  config: classpath:log4j2.xml
