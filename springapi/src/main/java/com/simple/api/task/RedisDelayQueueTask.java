@@ -23,7 +23,7 @@ public class RedisDelayQueueTask implements ApplicationRunner {
 
     @Override
     public void run(ApplicationArguments args)  {
-        new Timer().schedule(new TimerTask() {
+        new Timer("redis-延时队列").schedule(new TimerTask() {
             @Override
             public void run() {
                 // 未配置fsu响应超时时间或配置格式错误，取默认值30s

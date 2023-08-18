@@ -1,7 +1,7 @@
 package com.simple.thread;
 
-import com.simple.thread.factory.SimpleSingleThreadFactory;
-import com.simple.thread.factory.SimpleThreadFactory;
+import com.simple.api.util.threads.SimpleSingleThreadFactory;
+import com.simple.api.util.threads.SimpleThreadFactory;
 import lombok.extern.slf4j.Slf4j;
 
 @Slf4j

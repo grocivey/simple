@@ -1,4 +1,4 @@
-package com.simple.thread.factory;
+package com.simple.api.util.threads;
 
 import io.netty.util.concurrent.DefaultThreadFactory;
 import lombok.extern.slf4j.Slf4j;
@@ -6,7 +6,7 @@ import lombok.extern.slf4j.Slf4j;
 import java.util.concurrent.ThreadFactory;
 
 /**
- * 创建线程工厂类
+ * 线程工厂-创建线程
  *
  * @author gro
  */

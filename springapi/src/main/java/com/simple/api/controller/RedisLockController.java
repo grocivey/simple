@@ -2,6 +2,7 @@ package com.simple.api.controller;
 
 
 import com.simple.api.util.RedisUtil;
+import io.netty.util.concurrent.DefaultThreadFactory;
 import io.swagger.annotations.ApiOperation;
 import lombok.SneakyThrows;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -28,7 +29,7 @@ public class RedisLockController {
         redisTemplate.opsForValue().set("gzy:stock",100);
         int nowV = RedisUtil.getValueByKey(redisTemplate,"gzy:stock",Integer.class);
         System.out.println("当前值："+nowV);
-        ExecutorService service = Executors.newFixedThreadPool(20);
+        ExecutorService service = Executors.newFixedThreadPool(20, new DefaultThreadFactory("redis测试"));
         for (int i = 0; i <12; i++) {
             int finalI = i;
             service.execute(() -> {

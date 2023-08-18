@@ -1,6 +1,7 @@
 package com.simple.api.mqtt;
 
 
+import io.netty.util.concurrent.DefaultThreadFactory;
 import lombok.SneakyThrows;
 import lombok.extern.slf4j.Slf4j;
 import org.eclipse.paho.client.mqttv3.*;
@@ -28,7 +29,7 @@ public class MqttClientCallback implements MqttCallbackExtended {
     private String subTopic;
 
 
-    public static ThreadPoolExecutor threadPool = new ThreadPoolExecutor(32, 32, 10, TimeUnit.SECONDS, new SynchronousQueue<>(true),(r, executor) -> {
+    public static ThreadPoolExecutor threadPool = new ThreadPoolExecutor(32, 32, 10,TimeUnit.SECONDS, new SynchronousQueue<>(true),new DefaultThreadFactory("mqtt处理业务pool"), (r, executor) -> {
         try {
             executor.getQueue().put(r);
         } catch (InterruptedException e) {

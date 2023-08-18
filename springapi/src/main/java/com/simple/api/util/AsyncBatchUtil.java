@@ -1,5 +1,6 @@
 package com.simple.api.util;
 
+import io.netty.util.concurrent.DefaultThreadFactory;
 import lombok.SneakyThrows;
 
 import java.util.ArrayList;
@@ -38,7 +39,7 @@ public class AsyncBatchUtil {
      */
     @SneakyThrows
     public static <T> void listToBatchOperation(boolean needBlock, int nThreads, int onceCount, List<T> originalList, Consumer<List<T>> consumer){
-        ExecutorService pool = Executors.newFixedThreadPool(nThreads);//线程池
+        ExecutorService pool = Executors.newFixedThreadPool(nThreads, new DefaultThreadFactory("list分组list"));//线程池
         int originalSize = originalList.size();
         int groupCount = originalSize / onceCount;//有几组1000个
         int overCount = originalSize % onceCount;//不满一千剩下的
@@ -78,7 +79,7 @@ public class AsyncBatchUtil {
      */
     @SneakyThrows
     public static  void totalToGroupIndexOperation(int nThreads, int onceCount, int total, Consumer<Integer> consumer){
-        ExecutorService pool = Executors.newFixedThreadPool(nThreads);//线程池
+        ExecutorService pool = Executors.newFixedThreadPool(nThreads,new DefaultThreadFactory("total分组index"));//线程池
         int groupCount = total/onceCount;//有几组meta
         int overCount = total%onceCount;//不满剩下的
         if(groupCount > 0){

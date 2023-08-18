@@ -1,21 +1,24 @@
 package com.simple.thread.concurrent;
 
+import com.simple.api.util.threads.SimpleThreadFactory;
+import lombok.extern.slf4j.Slf4j;
+
 import java.util.concurrent.CountDownLatch;
 
+@Slf4j
 public class CountDownLatchSample {
     public static void main(String[] args) throws InterruptedException {
-        CountDownLatch latch = new CountDownLatch(11);
+        CountDownLatch latch = new CountDownLatch(10);
         for (int i = 0; i < 10; i++) {
-            MyThreadFactory.ofNew(latch::countDown).start();
+            SimpleThreadFactory.newThread(()->{
+                latch.countDown();
+                log.info("latch.countDown()");
+            }, "CountDownLatch测试").start();
         }
         latch.await();
         System.out.println("ok");
 
     }
 
-    static class MyThreadFactory {
-        public static Thread ofNew(Runnable task) {
-            return new Thread(task);
-        }
-    }
+
 }

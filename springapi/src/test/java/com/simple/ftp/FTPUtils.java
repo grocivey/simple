@@ -1,6 +1,7 @@
 package com.simple.ftp;
 
 import com.simple.api.util.MD5Util;
+import io.netty.util.concurrent.DefaultThreadFactory;
 import lombok.SneakyThrows;
 import lombok.extern.slf4j.Slf4j;
 import org.apache.commons.lang.StringUtils;
@@ -505,7 +506,7 @@ public class FTPUtils {
         String md5Code = "f47400fcabfb6cfc87098855593e837d";
 //        String md5Code = "bdc02c69e41494c660985bc51a44d25d";//bdc02c69e41494c660985bc51a44d25d  导入模板.xlsx
         //f47400fcabfb6cfc87098855593e837d  23.1.HQ.FSU.TT.AA00.R_DT10-INCe.bin
-        ExecutorService service = Executors.newFixedThreadPool(20);
+        ExecutorService service = Executors.newFixedThreadPool(20,new DefaultThreadFactory("ftp测试"));
         AtomicInteger success = new AtomicInteger(0);
         AtomicInteger fail = new AtomicInteger(0);
 
