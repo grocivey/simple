@@ -13,3 +13,4 @@ logs/
 .vscode/
 .mvn/wrapper/maven-wrapper.jar
 sc-*/
+node_modules/
