@@ -15,7 +15,11 @@ const amqp = require('amqplib');
 
 // 连接 RabbitMQ 服务器
 const connectionOptions = {
-
+    protocol: 'amqp',
+    hostname: '127.0.0.1',
+    port: 5672, // 指定端口号
+    username: 'admin',
+    password: 'rh@2023', // 指定密码
 };
 
 server.listen(port, hostname, () => {
