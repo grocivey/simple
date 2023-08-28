@@ -12,8 +12,12 @@ public enum SimpleSingleThreadFactory implements ThreadFactory {
 
     @Override
     public Thread newThread(Runnable task) {
+        return newThread(task,"");
+    }
+
+    public Thread newThread(Runnable task,String threadName) {
         Thread thread = new Thread(task);
-        thread.setName(POOL_NAME + "-" + thread.getId());
+        thread.setName(POOL_NAME + "-" + threadName + "-" + thread.getId());
         return thread;
     }
 
