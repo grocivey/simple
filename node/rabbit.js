@@ -16,7 +16,7 @@ const amqp = require('amqplib');
 // 连接 RabbitMQ 服务器
 const connectionOptions = {
     protocol: 'amqp',
-    hostname: '127.0.0.1',
+    hostname: '47.119.173.233',
     port: 5672, // 指定端口号
     username: 'admin',
     password: 'rh@2023', // 指定密码
@@ -31,26 +31,19 @@ server.listen(port, hostname, () => {
         const channel = await connection.createChannel();
 
         // 声明队列
-        const queueName = 'grotest1';
-        await channel.assertQueue(queueName, { durable: true });
+        // const queueName = 'grotest1';
+        // await channel.assertQueue(queueName, { durable: true });
+        // 声明随机队列
+        const { queueName } = await channel.assertQueue('');
+        // 将队列绑定到交换器
+        await channel.bindQueue(queueName, "fanout.faye_wang_tofront", '');
         // 消费消息
         channel.consume(queueName, (msg) => {
             const message = msg.content.toString();
-            console.log(' Received message  --> :', message);
+            console.log(' Received message  --> :'+queueName, message);
             // 手动确认消息已处理
             channel.ack(msg);
         }, { noAck: false });
-
-        //发送消息
-        let msg = '你好，世界！'
-        // const options = {
-        //     priority:0,
-        //     delivery_mode:	2,
-        //      headers:{'__TypeId__':'java.lang.String',
-        // content_encoding:	'UTF-8',
-        // content_type:	'application/json'}};
-        channel.sendToQueue('grotext22', Buffer.from(msg));
-        console.log("  Sent  --> %s", msg);
 
 
     }).catch((error) => {
