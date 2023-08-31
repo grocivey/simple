@@ -9,6 +9,6 @@ import org.springframework.core.annotation.Order;
 @Order(1)
 public class ThreadConfig {
     static {
-        Thread.setDefaultUncaughtExceptionHandler((t, e) -> log.error("ThreadPool  {} got exception", t, e));
+        Thread.setDefaultUncaughtExceptionHandler((t, e) -> log.error("捕获 {} exception", t, e));
     }
 }
