@@ -62,7 +62,7 @@ public class HanoiTowerGUI2 extends JFrame {
 
 
     public static void main(String[] args) {
-        int numDiscs = 3; // Change this to the desired number of discs
+        int numDiscs = 5; // 几个盘子
         SwingUtilities.invokeLater(new Runnable() {
             public void run() {
                 new HanoiTowerGUI2(numDiscs);
@@ -107,8 +107,6 @@ class HanoiPanel extends JPanel {
             moveCount++;
 
             repaint();
-        }else {
-            System.out.println(1);
         }
     }
 
@@ -157,7 +155,7 @@ class HanoiPanel extends JPanel {
         super.paintComponent(g);
 
         int pegWidth = getWidth() / 4;
-        int pegHeight = getHeight() - 400;
+        int pegHeight = getHeight();
         int discHeight = 20;
 
         for (int i = 1; i <= 3; i++) {
@@ -170,8 +168,8 @@ class HanoiPanel extends JPanel {
             for (int j = 0; j < numDiscs; j++) {
                 if (discPositions[j] == i) {
                     int discX = pegX - discHeight / 2 * (j + 1);
-                    int discY = pegY - discHeight * j;
-
+                    //大盘在最底下
+                    int discY =  discHeight * j + 800 - discHeight*numDiscs;
                     g.setColor(Color.RED);
                     g.fillRect(discX, discY, discHeight * (j + 1), discHeight);
                 }
