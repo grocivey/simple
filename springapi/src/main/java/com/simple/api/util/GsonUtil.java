@@ -4,8 +4,12 @@ import com.google.gson.Gson;
 
 import java.lang.reflect.Type;
 
+/**
+ *
+ * @author gzy
+ */
 public class GsonUtil {
-    public static final Gson GSON = new Gson();
+    private static final Gson GSON = new Gson();
     private GsonUtil(){}
 
     public static <T> String toJson(T str){
@@ -17,4 +21,6 @@ public class GsonUtil {
     public static <T> T fromJson(String str, Type typeOfT){
         return GSON.fromJson(str, typeOfT);
     }
+
+
 }
