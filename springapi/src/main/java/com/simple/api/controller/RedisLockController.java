@@ -25,7 +25,6 @@ public class RedisLockController {
     @ApiOperation(value = "测试redis分布式锁")
     public Object order() {
 
-        redisTemplate.opsForValue().setIfAbsent("gzy:lock2", 1,10, TimeUnit.SECONDS);
         redisTemplate.opsForValue().set("gzy:stock",100);
         int nowV = RedisUtil.getValueByKey(redisTemplate,"gzy:stock",Integer.class);
         System.out.println("当前值："+nowV);
@@ -33,6 +32,7 @@ public class RedisLockController {
         for (int i = 0; i <12; i++) {
             int finalI = i;
             service.execute(() -> {
+                //加锁
                 boolean lock = RedisUtil.lock(redisTemplate, RedisUtil.LOCK_KEY + "L1", finalI, 60);
                 while (!lock){
                     try {
@@ -52,6 +52,7 @@ public class RedisLockController {
                 if (stock > 0) {
                     redisTemplate.opsForValue().set("gzy:stock",--stock);
                 }
+                //解锁
                 RedisUtil.unlock(redisTemplate, RedisUtil.LOCK_KEY + "L1", finalI);
             });
 

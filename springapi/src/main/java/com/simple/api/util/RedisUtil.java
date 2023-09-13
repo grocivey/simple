@@ -7,6 +7,9 @@ import org.springframework.data.redis.core.script.RedisScript;
 import java.util.Collections;
 import java.util.concurrent.TimeUnit;
 
+/**
+ * redis工具类
+ */
 public class RedisUtil {
 
     public static String LOCK_KEY = "gzy:lock:";

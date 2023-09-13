@@ -9,7 +9,7 @@ import java.lang.reflect.Type;
  * @author gzy
  */
 public class GsonUtil {
-    private static final Gson GSON = new Gson();
+    public static final Gson GSON = new Gson();
     private GsonUtil(){}
 
     public static <T> String toJson(T str){

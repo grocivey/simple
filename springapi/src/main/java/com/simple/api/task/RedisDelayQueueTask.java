@@ -11,6 +11,9 @@ import java.util.Set;
 import java.util.Timer;
 import java.util.TimerTask;
 
+/**
+ * redis 延时队列
+ */
 @ConditionalOnProperty(name = "settings.enable",havingValue = "true")
 @Slf4j
 @Component
