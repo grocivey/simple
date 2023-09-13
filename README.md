@@ -1,20 +1,13 @@
-# 不知道simple
-### 小伙子
-小伙子
--
-# 大家伙
-这里是正文
-*这里是显示的斜体*
-*这里显示的是斜体*
-_这里是显示的倾斜_
-_这里显示的倾斜体_
-**这里显示的文字是加粗了**
-***这里的文字是倾斜加粗的***
-~~粘合度是简单回复是
+![Build project](https://github.com/netty/netty/workflows/Build%20project/badge.svg)
 
-这是一个一级标题
-=
-高效
-http://www.z01.com/
-[这是逐浪软件官网链接](http://www.z01.com/).
-[这是逐浪软件官网链接](http://www.z01.com/ "欢迎访问逐浪软件官网").
+# Netty Project
+
+Netty is an asynchronous event-driven network application framework for rapid development of maintainable high performance protocol servers & clients.
+
+## Links
+
+* [Web Site](https://netty.io/)
+* [Downloads](https://netty.io/downloads.html)
+* [Documentation](https://netty.io/wiki/)
+* [@netty_project](https://twitter.com/netty_project)
+* [Official Discord server](https://discord.gg/q4aQ2XjaCa)
