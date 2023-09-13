@@ -11,6 +11,9 @@ import java.util.concurrent.atomic.LongAdder;
 import java.util.stream.Collectors;
 import java.util.stream.IntStream;
 
+/**
+ * 测试ConcurrentHashMap computeIfAbsent
+ */
 @Slf4j
 public class ConcurrentHashMapTest {
     //循环次数

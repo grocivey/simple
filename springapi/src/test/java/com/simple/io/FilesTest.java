@@ -12,7 +12,10 @@ import java.nio.file.Paths;
 import java.nio.file.StandardOpenOption;
 import java.util.stream.IntStream;
 
-public class IoTest {
+/**
+ * Files工具类测试
+ */
+public class FilesTest {
     public static void main(String[] args) throws IOException {
         String cmd = "{\n" +
                 "\t\"PK_Type\":\t{\n" +

@@ -1,4 +1,4 @@
-package com.simple;
+package com.simple.hanoitower;
 
 import javax.swing.*;
 import java.awt.*;

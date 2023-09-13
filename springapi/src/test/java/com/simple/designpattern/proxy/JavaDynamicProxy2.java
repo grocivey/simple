@@ -4,6 +4,9 @@ import java.lang.reflect.InvocationHandler;
 import java.lang.reflect.Method;
 import java.lang.reflect.Proxy;
 
+/**
+ * java动态代理2
+ */
 public class JavaDynamicProxy2 {
     interface Eat{
         String slow(String food);

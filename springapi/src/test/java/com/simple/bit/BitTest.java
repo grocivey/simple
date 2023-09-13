@@ -2,7 +2,10 @@ package com.simple.bit;
 
 import org.junit.Test;
 
-public class BitOp {
+/**
+ * 测试位运算
+ */
+public class BitTest {
 
     @Test
     public void test1(){
@@ -38,7 +41,6 @@ public class BitOp {
         // 001011
 
         System.out.println(0xff & 0);
-
 
 
         int flags = 5;

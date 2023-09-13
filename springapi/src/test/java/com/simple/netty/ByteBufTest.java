@@ -3,6 +3,9 @@ package com.simple.netty;
 import io.netty.buffer.ByteBuf;
 import io.netty.buffer.ByteBufAllocator;
 
+/**
+ * ByteBuf测试
+ */
 public class ByteBufTest {
 
     public static void main(String[] args) {

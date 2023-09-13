@@ -9,6 +9,9 @@ import java.util.concurrent.ThreadLocalRandom;
 import java.util.stream.Collectors;
 import java.util.stream.IntStream;
 
+/**
+ * ForkJoinPool测试
+ */
 public class LambdaSample {
     @Test
     public void t1() throws InterruptedException {

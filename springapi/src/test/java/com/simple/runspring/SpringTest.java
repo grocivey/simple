@@ -1,4 +1,4 @@
-package com.simple.test;
+package com.simple.runspring;
 
 import com.simple.api.service.BaseStatService;
 import org.junit.Test;
@@ -7,6 +7,9 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.test.context.junit4.SpringRunner;
 
+/**
+ * springtest
+ */
 @SpringBootTest
 @RunWith(SpringRunner.class)
 public class SpringTest {

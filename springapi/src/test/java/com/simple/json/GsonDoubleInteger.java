@@ -7,6 +7,9 @@ import java.util.HashMap;
 import java.util.Map;
 import java.util.Set;
 
+/**
+ * gson反序列化int变double的解决
+ */
 public class GsonDoubleInteger {
 
     public static Gson getGson() {

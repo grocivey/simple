@@ -2,6 +2,9 @@ package com.simple.recycler;
 
 import io.netty.util.Recycler;
 
+/**
+ * 对象池测试
+ */
 public class UserCache {
     private static final Recycler<User> userRecycler = new Recycler<User>() {
 //        FastThreadLocal

@@ -6,6 +6,9 @@ import org.springframework.cglib.proxy.MethodProxy;
 
 import java.lang.reflect.Method;
 
+/**
+ * cglib动态代理测试
+ */
 public class CglibProxy {
     static class Game{
         public void playLOL(String user){

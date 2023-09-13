@@ -17,6 +17,9 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
+/**
+ * poi 获取excel中图片
+ */
 public class POIImage {
     /**
      * 获取excel表中的图片

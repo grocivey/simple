@@ -24,6 +24,9 @@ import java.util.concurrent.Executors;
 import java.util.concurrent.TimeUnit;
 import java.util.concurrent.atomic.AtomicInteger;
 
+/**
+ * FTP工具类
+ */
 @Slf4j
 public class FTPUtils {
     //ftp服务器地址

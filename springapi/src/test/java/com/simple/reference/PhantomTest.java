@@ -7,6 +7,9 @@ import java.lang.ref.Reference;
 import java.lang.ref.ReferenceQueue;
 import java.lang.ref.WeakReference;
 
+/**
+ * 引用测试
+ */
 public class PhantomTest {
     public static void main(String[] args) {
         BaseStat baseStat = new BaseStat();

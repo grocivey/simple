@@ -12,6 +12,9 @@ import java.util.concurrent.CopyOnWriteArrayList;
 import java.util.concurrent.ExecutorService;
 import java.util.concurrent.Executors;
 
+/**
+ * 线程安全list测试
+ */
 @Slf4j
 public class ListConcurrentSample {
     @Test
