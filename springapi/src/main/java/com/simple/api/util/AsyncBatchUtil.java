@@ -2,105 +2,107 @@ package com.simple.api.util;
 
 import io.netty.util.concurrent.DefaultThreadFactory;
 import lombok.SneakyThrows;
+import lombok.extern.slf4j.Slf4j;
 
 import java.util.ArrayList;
 import java.util.List;
-import java.util.concurrent.ExecutorService;
-import java.util.concurrent.Executors;
-import java.util.concurrent.TimeUnit;
+import java.util.concurrent.*;
 import java.util.function.Consumer;
 
-/**
- * 批量操作工具
- */
+@Slf4j
 public class AsyncBatchUtil {
-    /**
-     * 将list切割成多个list，返回切割后的list给consumer操作
-     *
-     * @param nThreads  线程数
-     * @param onceCount      一批多少数据
-     * @param originalList 原list
-     * @param consumer  consumer
-     * @param <T>
-     */
-    public static <T> void listToBatchOperation(int nThreads,int onceCount,List<T> originalList, Consumer<List<T>> consumer){
-        listToBatchOperation(false,nThreads,onceCount,originalList, consumer);
+
+    static ThreadPoolExecutor pool = new ThreadPoolExecutor(1, 20, 30, TimeUnit.SECONDS,
+            new LinkedBlockingQueue<>(50000),
+            new DefaultThreadFactory("AsyncBatchUtil批处理pool"),
+            (r, executor) -> {
+                log.error("AsyncBatchUtil线程池忙，拒绝服务");
+                throw new RejectedExecutionException("服务器繁忙");
+            });//拒绝策略
+
+
+    public static <T> void listInertToDb(int nThreads, int meta, List<T> onlineList, Consumer<List<T>> consumer) {
+        listInertToDb(false, nThreads, meta, onlineList, consumer);
     }
 
-    /**
-     * 将list切割成多个list，返回切割后的list给consumer操作
-     *
-     * @param needBlock 是否阻塞等待完成
-     * @param nThreads  线程数
-     * @param onceCount      一批多少数据
-     * @param originalList 原list
-     * @param consumer  consumer
-     * @param <T>
-     */
+
     @SneakyThrows
-    public static <T> void listToBatchOperation(boolean needBlock, int nThreads, int onceCount, List<T> originalList, Consumer<List<T>> consumer){
-        ExecutorService pool = Executors.newFixedThreadPool(nThreads, new DefaultThreadFactory("list分组list"));//线程池
-        int originalSize = originalList.size();
-        int groupCount = originalSize / onceCount;//有几组1000个
-        int overCount = originalSize % onceCount;//不满一千剩下的
+    public static <T> void listInertToDb(boolean isBlock, int nThreads, int meta, List<T> onlineList, Consumer<List<T>> consumer) {
+        int onlineSize = onlineList.size();
+        int groupCount = onlineSize / meta;//有几组1000个
+        int overCount = onlineSize % meta;//不满一千剩下的
+        int lacth = groupCount > 0 ? (overCount != 0 ? groupCount + 1 : groupCount) : 1;
+        CountDownLatch countDownLatch = new CountDownLatch(lacth);
         if (groupCount > 0) {
             for (int i = 0; i < groupCount; i++) {
                 List<T> tmpList = new ArrayList<>();
-                for (int j = 0; j < onceCount; j++) {
-                    tmpList.add(originalList.get(i * onceCount + j));
+                for (int j = 0; j < meta; j++) {
+                    tmpList.add(onlineList.get(i * meta + j));
                 }
-                pool.execute(() -> consumer.accept(tmpList));
+                pool.execute(() -> {
+                    consumer.accept(tmpList);
+                    if (isBlock) {
+                        countDownLatch.countDown();
+                    }
+                });
             }
             if (overCount != 0) {
                 List<T> tmpList = new ArrayList<>();
-                for (int i = groupCount * onceCount; i < originalSize; i++) {
-                    tmpList.add(originalList.get(i));
+                for (int i = groupCount * meta; i < onlineSize; i++) {
+                    tmpList.add(onlineList.get(i));
                 }
-                pool.execute(() -> consumer.accept(tmpList));
+                pool.execute(() -> {
+                    consumer.accept(tmpList);
+                    if (isBlock) {
+                        countDownLatch.countDown();
+                    }
+                });
             }
         } else {
-            pool.execute(() -> consumer.accept(originalList));
+            pool.execute(() -> {
+                consumer.accept(onlineList);
+                if (isBlock) {
+                    countDownLatch.countDown();
+                }
+            });
         }
-        pool.shutdown();
         //是否阻塞等待执行完毕
-        if (needBlock){
-            while (!pool.awaitTermination(1, TimeUnit.MILLISECONDS)){
-            }
+        if (isBlock) {
+            countDownLatch.await();
         }
     }
 
-    /**
-     * 传入总数后返回每组的index给consumer使用
-     *
-     * @param nThreads  线程数
-     * @param onceCount 一批数量
-     * @param total     总数
-     * @param consumer
-     */
+
     @SneakyThrows
-    public static  void totalToGroupIndexOperation(int nThreads, int onceCount, int total, Consumer<Integer> consumer){
-        ExecutorService pool = Executors.newFixedThreadPool(nThreads,new DefaultThreadFactory("total分组index"));//线程池
-        int groupCount = total/onceCount;//有几组meta
-        int overCount = total%onceCount;//不满剩下的
-        if(groupCount > 0){
+    public static void dbToObject(int nThreads, int meta, int allCount, Consumer<Integer> consumer) {
+        int groupCount = allCount / meta;//有几组meta
+        int overCount = allCount % meta;//不满剩下的
+        int lacth = groupCount > 0 ? (overCount != 0 ? groupCount + 1 : groupCount) : 1;
+        CountDownLatch countDownLatch = new CountDownLatch(lacth);
+        if (groupCount > 0) {
             for (int i = 0; i < groupCount; i++) {
                 int finalI = i;
-                pool.execute(() -> consumer.accept(finalI));
+                pool.execute(() -> {
+                    consumer.accept(finalI);
+                    countDownLatch.countDown();
+                });
             }
-            if (overCount != 0){
-                pool.execute(() -> consumer.accept(groupCount));
+            if (overCount != 0) {
+                pool.execute(() -> {
+                    consumer.accept(groupCount);
+                    countDownLatch.countDown();
+                });
             }
-        }else {
-            pool.execute(() -> consumer.accept(0));
+        } else {
+            pool.execute(() -> {
+                consumer.accept(0);
+                countDownLatch.countDown();
+            });
         }
-        pool.shutdown();//该方法不会马上关闭线程，但是会拒绝新线程的注册。
-        while (!pool.awaitTermination(1, TimeUnit.MILLISECONDS)){
-        }
+        countDownLatch.await();
     }
 
 
     private AsyncBatchUtil() {
     }
-
-
 }
