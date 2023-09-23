@@ -11,7 +11,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
 @RestController
-@RequestMapping("/function")
+@RequestMapping("/xixi/function")
 public class MyController {
 
     @Autowired
@@ -21,7 +21,7 @@ public class MyController {
      *
      * @return
      */
-    @PostMapping("/facility/remote/upgrade")
+    @RequestMapping("/facility/remote/upgrade")
     public RemoteUpgradeResponse  upgrade(){
         RemoteUpgradeResponse response = new RemoteUpgradeResponse();
         RemoteUpgradeResponse.BatchId batchId = new RemoteUpgradeResponse.BatchId();
@@ -44,6 +44,10 @@ public class MyController {
     @GetMapping("/getHelloWorld")
     public void getHelloWorld(){
         helloWorld.print();
+    }
+    @GetMapping("${gzy.addr}")
+    public void h1(){
+        System.out.println(111);
     }
 
 
