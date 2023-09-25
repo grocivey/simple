@@ -48,13 +48,12 @@ class H2O4 {
         try {
             while (hNum == 2) {//H原子已就绪，此时要么合成水分子，要么等待生产氧原子
                 if (!genWater("=")) {//是否可以合成水分子
-                    oFull.await();
+                    hFull.await();
                 }
             }
             // releaseHydrogen.run() outputs "H". Do not change or remove this line.
             releaseHydrogen.run();
             hNum++;
-            hFull.signalAll();
             oFull.signalAll();
         } catch (Exception e) {
             e.printStackTrace();
@@ -75,7 +74,6 @@ class H2O4 {
             releaseOxygen.run();
             oNum++;
             hFull.signalAll();
-            oFull.signalAll();
         } catch (Exception e) {
             e.printStackTrace();
         } finally {
